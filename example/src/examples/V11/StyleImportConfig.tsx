@@ -1,10 +1,19 @@
 import { Button } from 'react-native';
 import { useState } from 'react';
-import { MapView, Camera, StyleImport } from '@rnmapbox/maps';
+import {
+  MapView,
+  Camera,
+  StyleImport,
+  UserLocation,
+  UserTrackingMode,
+} from '@rnmapbox/maps';
+
+const HULHUMALE_COORDINATES: [number, number] = [73.54, 4.21];
 
 const StyleImportConfig = () => {
   const [lightPreset, setLightPreset] = useState('night');
   const nextLightPreset = lightPreset === 'night' ? 'day' : 'night';
+
   return (
     <>
       <Button
@@ -23,7 +32,9 @@ const StyleImportConfig = () => {
           animationDuration={0}
           zoomLevel={18}
           pitch={33}
+          animationDuration={0}
         />
+        <UserLocation visible showsUserHeadingIndicator />
         <StyleImport
           id="basemap"
           existing
