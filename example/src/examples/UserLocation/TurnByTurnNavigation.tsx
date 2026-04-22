@@ -55,7 +55,10 @@ type Route = {
 const OFF_ROUTE_METERS = 50;
 const OFF_ROUTE_TICKS = 4;
 const ARRIVED_METERS = 20;
-const NAVIGATION_STYLE_URL = 'mapbox://styles/mapbox/standard';
+const V11_NAVIGATION_STYLE_URL = 'mapbox://styles/mapbox/standard-beta';
+const V11_BASEMAP_CONFIG = {
+  lightPreset: 'day',
+};
 
 const routeStyle = {
   lineColor: '#2f80ed',
@@ -329,18 +332,12 @@ const TurnByTurnNavigation = () => {
     <View style={styles.root}>
       <MapView
         style={styles.map}
-        styleURL={NAVIGATION_STYLE_URL}
+        styleURL={V11_NAVIGATION_STYLE_URL}
         pitchEnabled
         rotateEnabled
         onLongPress={(f: GeoJSON.Feature<GeoJSON.Point>) => onLongPress(f)}
       >
-        <StyleImport
-          id="basemap"
-          existing
-          config={{
-            lightPreset: 'day',
-          }}
-        />
+        <StyleImport id="basemap" existing config={V11_BASEMAP_CONFIG} />
         <Camera
           followUserLocation={!arrived}
           followUserMode={
