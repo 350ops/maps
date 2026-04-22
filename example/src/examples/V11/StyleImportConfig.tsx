@@ -18,8 +18,8 @@ const StyleImportConfig = () => {
         styleURL={'mapbox://styles/mapbox/standard-beta'}
       >
         <Camera
-          defaultSettings={{ centerCoordinate: [-74.00597, 40.71427] }}
-          centerCoordinate={[-74.00597, 40.71427]}
+          defaultSettings={{ centerCoordinate: [73.54, 4.21] }}
+          centerCoordinate={[73.54, 4.21]}
           animationDuration={0}
           zoomLevel={18}
           pitch={33}
