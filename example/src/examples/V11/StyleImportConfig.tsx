@@ -27,10 +27,10 @@ const StyleImportConfig = () => {
         styleURL={'mapbox://styles/mapbox/standard-beta'}
       >
         <Camera
-          defaultSettings={{ centerCoordinate: HULHUMALE_COORDINATES }}
-          followUserLocation
-          followUserMode={UserTrackingMode.FollowWithHeading}
-          followZoomLevel={18}
+          defaultSettings={{ centerCoordinate: [73.54, 4.21] }}
+          centerCoordinate={[73.54, 4.21]}
+          animationDuration={0}
+          zoomLevel={18}
           pitch={33}
           animationDuration={0}
         />
