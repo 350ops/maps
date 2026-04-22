@@ -4,6 +4,7 @@ export { default as UserLocationPadding } from './UserLocationPadding';
 export { default as UserLocationRenderMode } from './UserLocationRenderMode';
 export { default as UserLocationUpdates } from './UserLocationUpdates';
 export { default as CustomNativeUserLocation } from './CustomNativeUserLocation';
+export { default as TurnByTurnNavigation } from './TurnByTurnNavigation';
 
 export const metadata = {
   title: 'User Location',
