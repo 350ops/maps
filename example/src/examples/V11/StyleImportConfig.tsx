@@ -1,44 +1,84 @@
-import { Button } from 'react-native';
 import { useState } from 'react';
-import { MapView, Camera, StyleImport } from '@rnmapbox/maps';
+import { Button, StyleSheet, View } from 'react-native';
+import {
+  Camera,
+  CircleLayer,
+  MapView,
+  ShapeSource,
+  StyleImport,
+  UserLocation,
+  UserTrackingMode,
+} from '@rnmapbox/maps';
+// @ts-ignore - Missing types for @turf packages
+import { point as makePoint } from '@turf/helpers';
+
+type Coord = [number, number];
 
 const StyleImportConfig = () => {
-  const [lightPreset, setLightPreset] = useState('night');
-  const nextLightPreset = lightPreset === 'night' ? 'day' : 'night';
+  const [turnByTurnEnabled, setTurnByTurnEnabled] = useState(true);
+  const [destination, setDestination] = useState<Coord | null>(null);
+
   return (
-    <>
+    <View style={styles.container}>
       <Button
-        title={`Change to ${nextLightPreset}`}
+        title={
+          turnByTurnEnabled
+            ? 'Disable turn-by-turn camera'
+            : 'Enable turn-by-turn camera'
+        }
         onPress={() => {
-          setLightPreset(nextLightPreset);
+          setTurnByTurnEnabled((enabled) => !enabled);
         }}
       />
       <MapView
         style={styles.mapView}
         styleURL={'mapbox://styles/mapbox/standard-beta'}
+        onLongPress={(event: GeoJSON.Feature<GeoJSON.Point>) => {
+          const { coordinates } = event.geometry;
+          setDestination(coordinates as Coord);
+        }}
       >
         <Camera
-          defaultSettings={{ centerCoordinate: [73.54, 4.21] }}
-          centerCoordinate={[73.54, 4.21]}
-          animationDuration={0}
-          zoomLevel={18}
-          pitch={33}
+          followUserLocation={turnByTurnEnabled}
+          followUserMode={UserTrackingMode.FollowWithCourse}
+          followZoomLevel={17}
+          followPitch={60}
+          defaultSettings={{
+            centerCoordinate: [73.54, 4.21],
+            zoomLevel: 16,
+            pitch: 60,
+          }}
         />
+        <UserLocation visible showsUserHeadingIndicator />
         <StyleImport
           id="basemap"
           existing
           config={{
-            lightPreset: lightPreset,
+            lightPreset: 'night',
           }}
         />
+        {destination && (
+          <ShapeSource id="destination-point" shape={makePoint(destination)}>
+            <CircleLayer
+              id="destination-circle"
+              style={{
+                circleRadius: 8,
+                circleColor: '#eb5757',
+                circleStrokeColor: '#ffffff',
+                circleStrokeWidth: 2,
+              }}
+            />
+          </ShapeSource>
+        )}
       </MapView>
-    </>
+    </View>
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
+  container: { flex: 1 },
   mapView: { flex: 1 },
-};
+});
 
 /* end-example-doc */
 
@@ -48,7 +88,9 @@ const metadata = {
   docs: `
 # Style Import Config
 
-This example shows how to change style import configs - v11 only.
+This example applies v11 style import config with a night preset and enables
+a turn-by-turn style camera that follows the user location with a 60° pitch.
+Long-press to drop a destination marker.
 `,
 };
 
