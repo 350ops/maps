@@ -126,6 +126,7 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
+    "@rnmapbox/maps": "^10.3.0",
     "@turf/along": "6.5.0",
     "@turf/distance": "6.5.0",
     "@turf/helpers": "6.5.0",

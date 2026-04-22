@@ -4852,7 +4852,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rnmapbox/maps@workspace:.":
+"@rnmapbox/maps@^10.3.0, @rnmapbox/maps@workspace:.":
   version: 0.0.0-use.local
   resolution: "@rnmapbox/maps@workspace:."
   dependencies:
@@ -4864,6 +4864,7 @@ __metadata:
     "@react-native-community/cli": 20.0.1
     "@react-native/babel-preset": 0.81.1
     "@react-native/eslint-config": ^0.81.1
+    "@rnmapbox/maps": ^10.3.0
     "@sinonjs/fake-timers": ^8.0.1
     "@testing-library/react-native": ^13.3.3
     "@turf/along": 6.5.0
